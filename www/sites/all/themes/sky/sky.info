@@ -19,6 +19,7 @@
   stylesheets[all][]   = css/navigation.css
   stylesheets[all][]   = color/colors.css
   stylesheets[all][]   = css/sky.settings.style.css
+  stylesheets[all][]   = css/custom.css
   stylesheets[print][] = css/print.css
 
 ;----------// Scripts
