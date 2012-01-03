@@ -25,6 +25,12 @@ class FeedsMapperFileTestCase extends FeedsMapperTestCase {
    * Basic test loading a single entry CSV file.
    */
   public function test() {
+    // If this is unset (or FALSE) http_request.inc will use curl, and will generate a 404
+    // for this feel url provided by feeds_tests. However, if feeds_tests was enabled in your
+    // site before running the test, it will work fine. Since it is truly screwy, lets just
+    // force it to use drupal_http_request for this test case.
+    variable_set('feeds_never_use_curl', TRUE);
+
     $typename = $this->createContentType(array(), array('files' => 'file'));
 
     // 1) Test mapping remote resources to file field.
@@ -88,7 +94,7 @@ class FeedsMapperFileTestCase extends FeedsMapperTestCase {
     $edit = array(
       'content_type' => '',
     );
-    $this->drupalPost('admin/structure/feeds/edit/node/settings', $edit, 'Save');
+    $this->drupalPost('admin/structure/feeds/node/settings', $edit, 'Save');
 
     // Import.
     $edit = array(

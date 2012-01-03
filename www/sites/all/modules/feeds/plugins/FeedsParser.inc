@@ -534,7 +534,10 @@ class FeedsDateTime extends DateTime {
   public function __construct($time = '', $tz = NULL) {
     // Assume UNIX timestamp if numeric.
     if (is_numeric($time)) {
-      $time = "@" . $time;
+      // Make sure it's not a simple year
+      if ((is_string($time) && strlen($time) > 4) || is_int($time)) {
+        $time = "@" . $time;
+      }
     }
 
     // PHP < 5.3 doesn't like the GMT- notation for parsing timezones.
